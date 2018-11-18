@@ -1,0 +1,102 @@
+<div bsModal #createPersonModal="bs-modal" class="modal fade" (onShown)="onShown()" tabindex="-1" role="dialog" aria-labelledby="createPersonModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog">
+
+      <div #modalContent class="modal-content">
+
+          <form *ngIf="active" #createPersonForm="ngForm" id="frm_create_user" novalidate (ngSubmit)="save()">
+              <div class="modal-header">
+                  <button type="button" class="close" (click)="close()" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title">
+                      <span>{{l("CreateNewPerson")}}</span>
+                  </h4>
+              </div>
+              <div class="modal-body">
+
+                  <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                      <li role="presentation" class="active"><a href="#user-details" data-toggle="tab">Person Details</a></li>
+                      
+                  </ul>
+                  <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane animated fadeIn active" id="user-details">
+
+                          <div class="row clearfix" style="margin-top:10px;">
+                              <div class="col-sm-12">
+                                  <div class="form-group form-float">
+                                      <div class="form-line">
+                                          <input id="firstName" type="text" name="firstName" [(ngModel)]="person.firstName"  #firstName="ngModel" required maxlength="32" minlength="2" pattern="[a-zA-Z]*" class="validate form-control" >
+                                          <label for="personfirstname" class="form-label">{{l("FirstName")}}</label>
+                                          
+                                             
+                                      </div>
+
+                                     <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                                      class="alert alert-danger">
+                                  
+                                        <div *ngIf="firstName.errors.required">
+                                             Name is required.
+                                        </div>
+                                         <div *ngIf="firstName.errors.minlength">
+                                           First Name must be at least 2 characters long.
+                                        </div>
+
+                                        <div *ngIf="firstName.errors.pattern">
+                                            Only letters (a-z or A-Z).
+                                        </div>
+                                  
+                                     </div>
+                           
+
+                                  </div>
+                              </div>
+                          
+                          
+                          </div>
+                          
+                          <div class="row clearfix" style="margin-top:10px;">
+                            <div class="col-sm-12">
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input id="lastName" type="text" name="lastName" [(ngModel)]="person.lastName"  #lastName="ngModel"required maxlength="32" minlength="2" pattern="[a-zA-Z]*" class="validate form-control">
+                                        <label for="lastName" class="form-label">{{l("Last Name")}} </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                                      class="alert alert-danger">
+                                  
+                                        <div *ngIf="lastName.errors.required">
+                                             Name is required.
+                                        </div>
+                                         <div *ngIf="lastName.errors.minlength">
+                                            Last Name must be at least 2 characters long.
+                                        </div>
+
+                                        <div *ngIf="lastName.errors.pattern">
+                                            Only letters (a-z or A-Z).
+                                        </div>
+                                  
+                                     </div>
+                         </div>
+
+                                       
+                      </div>
+
+                      
+                  </div>
+
+              </div>
+              <div class="modal-footer">
+                  <button [disabled]="saving" type="button" class="btn btn-default waves-effect" (click)="close()">
+                      {{l("Cancel")}}
+                  </button>
+                  <button [disabled]="!createPersonForm.form.valid || saving" type="submit" class="btn btn-primary waves-effect">
+                      {{l("Save")}}
+                  </button>
+              </div>
+
+          </form>
+      </div>
+  </div>
+</div>
